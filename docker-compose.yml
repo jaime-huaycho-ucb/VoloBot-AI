@@ -1,0 +1,17 @@
+services:
+  volobot-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: volobot-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - whisper-models:/root/.cache/huggingface
+      - ./backend/debug:/app/debug   # aquí queda el último audio enviado (ultimo_enviado.wav)
+
+volumes:
+  whisper-models:
